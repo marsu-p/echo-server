@@ -1,0 +1,7 @@
+{
+  "repoURL": "https://github.com/marsu-p/echo-server",
+  "drySha": "c267620d5190c9fe6d03df662961764fa38b3f0e",
+  "commands": [
+    "helm template . --name-template zeng-echo-server --namespace promoter-system --values ./values/values-all.yaml --values ./values/values-zeng-sbx.yaml --include-crds"
+  ]
+}

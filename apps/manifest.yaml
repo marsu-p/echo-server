@@ -43,16 +43,25 @@ metadata:
     app.kubernetes.io/name: echoserver
   name: echoserver
 spec:
-  replicas: 2
+  replicas: 5
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: echoserver
+      app.kubernetes.io/name: echoserver
   strategy:
-    blueGreen:
-      activeService: echoserver-active
-      autoPromotionEnabled: false
-      previewService: echoserver-preview
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: {}
+        - setWeight: 40
+        - pause:
+            duration: 10
+        - setWeight: 60
+        - pause:
+            duration: 10
+        - setWeight: 80
+        - pause:
+            duration: 10
   template:
     metadata:
       labels:

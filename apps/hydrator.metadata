@@ -1,6 +1,6 @@
 {
   "repoURL": "https://github.com/marsu-p/echo-server",
-  "drySha": "b057f3f684b62a62c23b477b9b67eac367ee9694",
+  "drySha": "896aa103230e05424b68addb09432d15cf83438f",
   "commands": [
     "helm template . --name-template test-dummy --namespace test-dummy --values ./values/values-all.yaml --values ./values/values-test.yaml --include-crds"
   ]

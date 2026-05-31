@@ -47,7 +47,7 @@ spec:
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: echoserver
+      app.kubernetes.io/name: echoserver
   strategy:
     blueGreen:
       activeService: echoserver-active

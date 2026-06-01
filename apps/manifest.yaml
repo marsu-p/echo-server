@@ -51,7 +51,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: echoserver.major-dummy.ztst-cicd.localhost
+    - host: echoserver.major-dummy.ztst-sbx.localhost
       http:
         paths:
           - backend:

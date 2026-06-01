@@ -5,6 +5,6 @@ To hydrate the manifests in this repository, run the following commands:
 ```shell
 git clone https://github.com/marsu-p/echo-server
 # cd into the cloned directory
-git checkout 47edfd3c574733cb5d2d1578c1e5a7c1c736edcb
+git checkout e5a4ab8c5509b8bef1a7acf08275e211e888e2c6
 helm template . --name-template pat-dummy --namespace pat-dummy --values ./values/values-all.yaml --values ./values/values-pat.yaml --include-crds
 ```

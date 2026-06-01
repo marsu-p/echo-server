@@ -1,7 +1,7 @@
 {
   "repoURL": "https://github.com/marsu-p/echo-server",
-  "drySha": "6c6b8ec821382a54c9f2d32254217fa0d7458493",
+  "drySha": "ea409ca21a8c7ad2fc97cf86f99378cf82499722",
   "commands": [
-    "helm template . --name-template test2-dummy --namespace test2-dummy --values ./values/values-all.yaml --values ./values/values-test2.yaml --include-crds"
+    "helm template . --name-template test2-dummy --namespace test2-dummy --set clustername=zeng-sbx --values ./values/values-all.yaml --values ./values/values-test2.yaml --include-crds"
   ]
 }

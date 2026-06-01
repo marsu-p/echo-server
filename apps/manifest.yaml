@@ -21,7 +21,7 @@ metadata:
     app.kubernetes.io/name: echoserver
   name: echoserver
 spec:
-  replicas: 5
+  replicas: 0
   selector:
     matchLabels:
       app.kubernetes.io/name: echoserver

@@ -14,6 +14,32 @@ spec:
     app.kubernetes.io/name: echoserver
   type: ClusterIP
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: echoserver
+  name: echoserver
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: echoserver
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: echoserver
+    spec:
+      containers:
+        - env:
+            - name: PORT
+              value: "80"
+          image: ealen/echo-server:0.8.16
+          imagePullPolicy: IfNotPresent
+          name: echoserver
+          ports:
+            - containerPort: 80
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -39,12 +65,9 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  labels:
-    app.kubernetes.io/name: echoserver
   name: echoserver
 spec:
   replicas: 5
-  revisionHistoryLimit: 2
   selector:
     matchLabels:
       app.kubernetes.io/name: echoserver
@@ -62,17 +85,8 @@ spec:
         - setWeight: 80
         - pause:
             duration: 10
-  template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: echoserver
-    spec:
-      containers:
-        - env:
-            - name: PORT
-              value: "80"
-          image: ealen/echo-server:0.8.16
-          imagePullPolicy: IfNotPresent
-          name: echoserver
-          ports:
-            - containerPort: 80
+  workloadRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: echoserver
+    scaleDown: onsuccess

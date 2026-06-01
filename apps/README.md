@@ -5,6 +5,6 @@ To hydrate the manifests in this repository, run the following commands:
 ```shell
 git clone https://github.com/marsu-p/echo-server
 # cd into the cloned directory
-git checkout ea409ca21a8c7ad2fc97cf86f99378cf82499722
-helm template . --name-template pat-dummy --namespace pat-dummy --values ./values/values-all.yaml --values ./values/values-pat.yaml --include-crds
+git checkout 09eef1b2731053f10527c30c8d50d1c95039988f
+helm template . --name-template pat-dummy --namespace pat-dummy --set clustername=zpre-sbx --values ./values/values-all.yaml --values ./values/values-pat.yaml --include-crds
 ```

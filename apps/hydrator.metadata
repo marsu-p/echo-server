@@ -1,7 +1,7 @@
 {
   "repoURL": "https://github.com/marsu-p/echo-server",
-  "drySha": "ea409ca21a8c7ad2fc97cf86f99378cf82499722",
+  "drySha": "09eef1b2731053f10527c30c8d50d1c95039988f",
   "commands": [
-    "helm template . --name-template pat-dummy --namespace pat-dummy --values ./values/values-all.yaml --values ./values/values-pat.yaml --include-crds"
+    "helm template . --name-template pat-dummy --namespace pat-dummy --set clustername=zpre-sbx --values ./values/values-all.yaml --values ./values/values-pat.yaml --include-crds"
   ]
 }

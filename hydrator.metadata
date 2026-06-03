@@ -1,7 +1,7 @@
 {
   "repoURL": "https://github.com/marsu-p/echo-server",
-  "drySha": "51452e6a03f477244f618887ddda7b0faed1ffc4",
+  "drySha": "782b2657a9077bd5fc2d8928b54d7cd078ea5564",
   "author": "Marcel da Silva <marcel.dasilva@twint.ch>",
-  "date": "2026-06-03T13:06:05Z",
-  "subject": "revert rollout"
+  "date": "2026-06-03T13:35:26Z",
+  "subject": "active argo rollouts"
 }

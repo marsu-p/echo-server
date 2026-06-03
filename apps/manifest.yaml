@@ -51,7 +51,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: echoserver.test2-dummy.zeng-sbx.localhost
+    - host: echoserver.test2-echo-server.zeng-sbx.localhost
       http:
         paths:
           - backend:
@@ -61,3 +61,32 @@ spec:
                   number: 80
             path: /
             pathType: Prefix
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: echoserver
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: echoserver
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: {}
+        - setWeight: 40
+        - pause:
+            duration: 10
+        - setWeight: 60
+        - pause:
+            duration: 10
+        - setWeight: 80
+        - pause:
+            duration: 10
+  workloadRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: echoserver
+    scaleDown: onsuccess

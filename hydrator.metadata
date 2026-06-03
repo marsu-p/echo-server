@@ -1,7 +1,7 @@
 {
   "repoURL": "https://github.com/marsu-p/echo-server",
-  "drySha": "09eef1b2731053f10527c30c8d50d1c95039988f",
-  "author": "Marcel da Silva <dasilva.marcel@gmail.com>",
-  "date": "2026-06-01T11:48:56Z",
-  "subject": "bootstrap"
+  "drySha": "51452e6a03f477244f618887ddda7b0faed1ffc4",
+  "author": "Marcel da Silva <marcel.dasilva@twint.ch>",
+  "date": "2026-06-03T13:06:05Z",
+  "subject": "revert rollout"
 }

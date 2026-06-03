@@ -21,7 +21,7 @@ metadata:
     app.kubernetes.io/name: echoserver
   name: echoserver
 spec:
-  replicas: 5
+  replicas: 0
   selector:
     matchLabels:
       app.kubernetes.io/name: echoserver
@@ -34,7 +34,7 @@ spec:
         - env:
             - name: PORT
               value: "80"
-          image: ealen/echo-server:0.9.2
+          image: ealen/echo-server:0.9.1
           imagePullPolicy: IfNotPresent
           name: echoserver
           ports:

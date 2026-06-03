@@ -1,7 +1,7 @@
 {
   "repoURL": "https://github.com/marsu-p/echo-server",
-  "drySha": "782b2657a9077bd5fc2d8928b54d7cd078ea5564",
+  "drySha": "10f8136bbade59784502758b35a420144c7420e1",
   "author": "Marcel da Silva <marcel.dasilva@twint.ch>",
-  "date": "2026-06-03T13:35:26Z",
-  "subject": "active argo rollouts"
+  "date": "2026-06-03T13:38:02Z",
+  "subject": "move to argo rollouts"
 }

@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/name: echoserver
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: HTTP
+  name: echoserver
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: echoserver.{{ .Release.Namespace }}.{{ .Values.clustername }}.localhost
+    http:
+      paths:
+      - backend:
+          service:
+            name: echoserver
+            port:
+              number: 80
+        path: /
+        pathType: Prefix

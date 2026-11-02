@@ -1,7 +1,7 @@
 {
   "repoURL": "https://github.com/marsu-p/echo-server.git",
-  "drySha": "8ecc0c2b38ad5b59b45695f7538728f8bceb0c76",
+  "drySha": "d0006b77b02b00317cf861945847cd1cdc2d5d3c",
   "author": "marsu-p <dasilva.marcel@gmail.com>",
-  "date": "2026-11-02T16:02:44Z",
-  "subject": "bootstrap"
+  "date": "2026-11-02T16:31:23Z",
+  "subject": "trigger source hydrator"
 }

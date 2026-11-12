@@ -1,0 +1,7 @@
+{
+  "repoURL": "https://github.com/marsu-p/echo-server.git",
+  "drySha": "98628cff1e2fefa2da79efc21ab560490a839763",
+  "author": "marsu-p <dasilva.marcel@gmail.com>",
+  "date": "2026-11-06T12:16:41Z",
+  "subject": "add clusterexternalsecret"
+}

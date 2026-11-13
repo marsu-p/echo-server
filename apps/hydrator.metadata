@@ -1,6 +1,6 @@
 {
   "repoURL": "https://github.com/marsu-p/echo-server.git",
-  "drySha": "335f4ce60a710598c5a7a5f552dd05bd96ea4bff",
+  "drySha": "3455f22d289b89e85d91dfa2ae872b3b28dd9105",
   "commands": [
     "helm template . --name-template echo-server --namespace echo-server --set clustername=ztst-sbx --values ./values/values-all.yaml --include-crds"
   ]

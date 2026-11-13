@@ -3,7 +3,7 @@
 # Prepares the per-PR hydration branches for the echo-server-renderer ApplicationSet.
 #
 #   opened/reopened/synchronize:
-#     1. seed rendered/pr-<N>-<env>-next from environment/<env>-next (only if missing),
+#     1. seed rendered/pr-<N>-<env> from environment/<env>-next (only if missing),
 #        so the hydrator commits on top of the real env history -> clean compare diff
 #     2. add the `render` label AFTER seeding, so the PR generator (filtered on that
 #        label) never picks the PR up before the branch exists
@@ -43,10 +43,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Seed rendered/pr-${{ env.PR }}-${{ matrix.env }}-next
+      - name: Seed rendered/pr-${{ env.PR }}-${{ matrix.env }}
         run: |
           BASE="environment/${{ matrix.env }}-next"
-          TARGET="rendered/pr-${PR}-${{ matrix.env }}-next"
+          TARGET="rendered/pr-${PR}-${{ matrix.env }}"
 
           if git ls-remote --exit-code --heads origin "$TARGET" >/dev/null; then
             echo "$TARGET already exists, leaving it to the hydrator"

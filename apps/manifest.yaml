@@ -62,6 +62,32 @@ spec:
             path: /
             pathType: Prefix
 ---
+apiVersion: external-secrets.io/v1
+kind: ClusterExternalSecret
+metadata:
+  name: hello-world
+spec:
+  externalSecretMetadata:
+    annotations: {}
+    labels: {}
+  externalSecretName: hello-world-es
+  externalSecretSpec:
+    target:
+      creationPolicy: Merge
+      name: my-secret
+      template:
+        data:
+          config.yml: |
+            endpoints: foo
+        metadata:
+          annotations: {}
+          labels: {}
+        type: kubernetes.io/dockerconfigjson
+  namespaceSelectors:
+    - matchLabels:
+        cool: label
+  refreshTime: 1m
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:

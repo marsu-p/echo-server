@@ -1,0 +1,85 @@
+# .github/workflows/render-preview.yaml
+#
+# Prepares the per-PR hydration branches for the echo-server-renderer ApplicationSet.
+#
+#   opened/reopened/synchronize:
+#     1. seed rendered/pr-<N>-<env>-next from environment/<env>-next (only if missing),
+#        so the hydrator commits on top of the real env history -> clean compare diff
+#     2. add the `render` label AFTER seeding, so the PR generator (filtered on that
+#        label) never picks the PR up before the branch exists
+#   closed:
+#     3. delete the per-PR branches
+#
+# Requires the ApplicationSet's pullRequest generator to filter on `labels: [render]`
+# and to use hydrateTo.targetBranch: rendered/pr-{{ .number }}-{{ .metadata.labels.env }}-next
+
+name: render-preview
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+permissions:
+  contents: write # push / delete branches
+  pull-requests: write # add label
+
+concurrency:
+  group: render-preview-${{ github.event.number }}
+  cancel-in-progress: false
+
+env:
+  PR: ${{ github.event.number }}
+  RENDER_LABEL: render
+
+jobs:
+  seed:
+    if: github.event.action != 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        env: [ztst] # one entry per value of the cluster label `env`
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Seed rendered/pr-${{ env.PR }}-${{ matrix.env }}-next
+        run: |
+          BASE="environment/${{ matrix.env }}-next"
+          TARGET="rendered/pr-${PR}-${{ matrix.env }}-next"
+
+          if git ls-remote --exit-code --heads origin "$TARGET" >/dev/null; then
+            echo "$TARGET already exists, leaving it to the hydrator"
+            exit 0
+          fi
+          if ! git ls-remote --exit-code --heads origin "$BASE" >/dev/null; then
+            echo "::error::base branch $BASE does not exist"
+            exit 1
+          fi
+
+          git fetch -q origin "$BASE"
+          git push origin "refs/remotes/origin/$BASE:refs/heads/$TARGET"
+          echo "seeded $TARGET from $BASE"
+
+  label:
+    needs: seed
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add render label (lets the PR generator pick it up)
+        if: ${{ !contains(github.event.pull_request.labels.*.name, env.RENDER_LABEL) }}
+        run: gh pr edit "$PR" --repo "$GITHUB_REPOSITORY" --add-label "$RENDER_LABEL"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  cleanup:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete per-PR rendered branches
+        run: |
+          for b in $(gh api "repos/$GITHUB_REPOSITORY/git/matching-refs/heads/rendered/pr-${PR}-" --jq '.[].ref'); do
+            echo "deleting $b"
+            gh api -X DELETE "repos/$GITHUB_REPOSITORY/git/$b" || true
+          done
+        env:
+          GH_TOKEN: ${{ github.token }}

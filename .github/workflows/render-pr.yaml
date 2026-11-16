@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        env: [ztst] # one entry per value of the cluster label `env`
+        env: [dev] # one entry per value of the cluster label `env`
     steps:
       - uses: actions/checkout@v4
         with:

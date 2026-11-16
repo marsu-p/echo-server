@@ -34,7 +34,7 @@ spec:
         - env:
             - name: PORT
               value: "80"
-          image: ealen/echo-server:0.9.0
+          image: ealen/echo-server:0.9.1
           imagePullPolicy: IfNotPresent
           name: echoserver
           ports:
